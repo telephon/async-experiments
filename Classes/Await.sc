@@ -54,7 +54,7 @@ WaitForMetaSynth : WaitFor {
 
 	new { |defName, args, target, addAction=\addToHead|
 		var synth = object.new(defName, args, target, addAction);
-		OSCFunc({ "unhang...........".postln; this.unhang }, "/n_go", synth.server.addr).oneShot;
+		OSCFunc({ this.unhang }, "/n_go", synth.server.addr).oneShot;
 		this.hang;
 		^synth.await // this is special: we return an instance waiter object
 	}
