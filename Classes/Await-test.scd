@@ -9,7 +9,7 @@ async {
 	"waiting for Dialog ...".postln;
 	Dialog.await.openPanel;
 	"... and running a synth".postln;
-	a = Synth.await.new(\default);
+	a = Synth.new(\default);
 }
 )
 
@@ -23,10 +23,7 @@ async {
 	s.await.boot;
 	s.notify;
 	"waiting for Group ...".postln;
-	g = Group.await;
-	g.postcs;
-	"----".postln;
-	g.new(s);
+	g = Group.await.new(s);
 	"... and running the synth".postln;
 	a = Synth.await.new(\default, g.object);
 	1.wait;
