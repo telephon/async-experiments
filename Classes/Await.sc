@@ -135,7 +135,9 @@ WaitForMetaDialog : WaitFor {
 + Function {
 
 	async {
-		^this.fork(AppClock)
+		var routine = Routine(this);
+		routine.play(AppClock);
+		CmdPeriod.doOnce { routine.stop };
 	}
 }
 
