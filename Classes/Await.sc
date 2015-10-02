@@ -35,16 +35,17 @@ WaitForServer : WaitFor {
 			this.unhang
 		};
 		this.hang;
+		^object
 	}
 }
 
 WaitForMetaGroup : WaitFor {
 
 	new { |target, addAction=\addToHead|
-		var synth = object.new(target, addAction);
-		OSCFunc({ this.unhang }, "/n_go", synth.server.addr).oneShot;
+		var group = object.new(target, addAction);
+		OSCFunc({ this.unhang }, "/n_go", group.server.addr).oneShot;
 		this.hang;
-		^synth.await // this is special: we return an instance waiter object
+		^group
 	}
 
 
@@ -56,7 +57,7 @@ WaitForMetaSynth : WaitFor {
 		var synth = object.new(defName, args, target, addAction);
 		OSCFunc({ this.unhang }, "/n_go", synth.server.addr).oneShot;
 		this.hang;
-		^synth.await // this is special: we return an instance waiter object
+		^synth
 	}
 
 }
@@ -70,6 +71,7 @@ WaitForSynth : WaitFor {
 		object.release(releaseTime);
 		OSCFunc({ this.unhang }, "/n_end", object.server.addr).oneShot;
 		this.hang;
+		^object
 	}
 }
 
@@ -78,6 +80,7 @@ WaitForMetaDialog : WaitFor {
 	openPanel { arg okFunc, cancelFunc, multipleSelection=false;
 		object.openPanel({ this.unhang; okFunc.value }, { this.unhang; cancelFunc.value }, multipleSelection);
 		this.hang;
+		^object
 	}
 }
 
